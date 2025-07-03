@@ -17,16 +17,17 @@
 
   <section id="race-selector">
     <h2>Select a Race</h2>
-    <ul>
-      <li><a href="#race1">Race 1</a></li>
-      <li><a href="#race2">Race 2</a></li>
-      <li><a href="#race3">Race 3</a></li>
-      <li><a href="#race4">Race 4</a></li>
-      <li><a href="#race5">Race 5</a></li>
-      <li><a href="#race6">Race 6</a></li>
-      <li><a href="#race7">Race 7</a></li>
-      <li><a href="#race8">Race 8</a></li>
-    </ul>
+<div class="race-button-group">
+  <a href="#race1" class="race-button">Race 1</a>
+  <a href="#race2" class="race-button">Race 2</a>
+  <a href="#race3" class="race-button">Race 3</a>
+  <a href="#race4" class="race-button">Race 4</a>
+  <a href="#race5" class="race-button">Race 5</a>
+  <a href="#race6" class="race-button">Race 6</a>
+  <a href="#race7" class="race-button">Race 7</a>
+  <a href="#race8" class="race-button">Race 8</a>
+</div>
+
   </section>
 <p id="no-selection-message">Please select a race above to view the table.</p>
   <section id="race-tables">
@@ -54,7 +55,7 @@
 </script>
 <footer id="page-footer" style="margin-top: 2rem; font-size: 0.9rem; color: #666; text-align: center;">
   <p id="page-timestamp">Page loaded: ...</p>
-  <p><a href="#" onclick="location.reload()">🔄 Refresh for latest data</a></p>
+<p><a href="#" class="refresh-button" onclick="location.reload()">🔄 Refresh for latest data</a></p>
 </footer>
 
 </body>
