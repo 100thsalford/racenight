@@ -5,20 +5,14 @@ window.addEventListener('DOMContentLoaded', () => {
     key: publicSpreadsheetURL,
     callback: function(data) {
       console.log("Fetched data:", data);
-      showInfo(data["Race Data"]); // << This must match your tab name exactly
+      showInfo(data["Race Data"]);
     },
     simpleSheet: false
   });
 });
 
-
 function showInfo(data) {
-  if (!Array.isArray(data)) {
-  console.error("Race Data not found or malformed", data);
-  return;
-};
-
-    console.log("Fetched data:", data);  // ADD THIS LINE
+  console.log("Race Data received:", data);
   const container = document.getElementById('race-tables');
   const grouped = {};
 
