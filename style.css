@@ -14,7 +14,7 @@ nav a {
 }
 
 #status-section p {
-	font-size: 1.25rem;
+	font-size: 1.5rem;
 	margin: .5rem 0
 }
 
@@ -28,7 +28,7 @@ nav a {
 }
 
 .tote-status-box {
-	font-size: 1.5rem;
+	font-size: 1.55rem;
 	font-weight: 700;
 	border-radius: .5rem;
 	display: inline-block;
@@ -38,7 +38,7 @@ nav a {
 .race-button,
 body,
 table {
-	font-size: 1rem
+	font-size: 1.2rem
 }
 
 .status-open {
