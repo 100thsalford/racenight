@@ -30,5 +30,26 @@
   <section id="race-tables">
     <!-- Race tables will be injected here by JS -->
   </section>
+  <script>
+  window.addEventListener('hashchange', showRaceFromHash);
+  window.addEventListener('DOMContentLoaded', showRaceFromHash);
+
+  function showRaceFromHash() {
+    const allTables = document.querySelectorAll('table');
+    const hash = window.location.hash;
+
+    allTables.forEach(table => {
+      table.style.display = 'none';
+    });
+
+    if (hash.startsWith('#race')) {
+      const tableToShow = document.querySelector(hash);
+      if (tableToShow) {
+        tableToShow.style.display = 'table';
+      }
+    }
+  }
+</script>
+
 </body>
 </html>
