@@ -24,3 +24,13 @@ caption {
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
 }
+.status-block {
+  background: #f8f8f8;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+.status-block p {
+  margin: 0.5rem 0;
+}
+
