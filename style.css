@@ -158,3 +158,8 @@ caption {
 		font-size: .95rem
 	}
 }
+.horse-number {
+  width: 80px;
+  text-align: center;
+  white-space: nowrap;
+}
