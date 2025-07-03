@@ -75,7 +75,7 @@ function renderRaceTables(data) {
       <thead><tr><th>Horse Name</th><th>Sponsor</th></tr></thead>
       <tbody>
         ${grouped[raceNum].map(row => `
-          <tr><td>${row.HorseName}</td><td>${row.SponsorName}</td></tr>
+          <tr><td>${row.HorseNumber}</td><td>${row.HorseName}</td><td>${row.SponsorName}</td></tr>
         `).join('')}
       </tbody>
     `;
