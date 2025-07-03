@@ -37,11 +37,14 @@ function renderStatus(status) {
   let statusClass = '';
   const statusText = status.ToteStatus.toLowerCase();
 
-  if (statusText.includes('open')) {
-    statusClass = 'status-open';
-  } else if (statusText.includes('closed')) {
-    statusClass = 'status-closed';
-  }
+if (statusText.includes('open')) {
+  statusClass = 'status-open';
+} else if (statusText.includes('closed')) {
+  statusClass = 'status-closed';
+} else if (statusText.includes('payout')) {
+  statusClass = 'status-payout';
+}
+
 
   statusContainer.innerHTML = `
     <div class="tote-status-box ${statusClass}">
