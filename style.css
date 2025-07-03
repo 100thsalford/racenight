@@ -48,6 +48,11 @@ table {
 .status-closed {
 	background-color: #dc3545
 }
+.status-payout {
+  background-color: rgb(80, 31, 163); /* Purple */
+  color: white;
+}
+
 
 .race-button-group {
 	display: flex;
