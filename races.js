@@ -18,28 +18,16 @@ function parseCSV(csv) {
   });
 }
 
-function renderRaceTables(data) {
-  console.log("Parsed data:", data);
-  const container = document.getElementById('race-tables');
-  const grouped = {};
+function renderRaceTables(data) {const table = document.createElement('table');
+table.id = `race${raceNum}`;
+table.innerHTML = `
+  <caption>Race ${raceNum}</caption>
+  <thead><tr><th>Horse Name</th><th>Sponsor</th></tr></thead>
+  <tbody>
+    ${grouped[raceNum].map(row => `
+      <tr><td>${row.HorseName}</td><td>${row.SponsorName}</td></tr>
+    `).join('')}
+  </tbody>
+`;
 
-  data.forEach(row => {
-    const race = row.RaceNumber;
-    if (!grouped[race]) grouped[race] = [];
-    grouped[race].push(row);
-  });
-
-  Object.keys(grouped).sort().forEach(raceNum => {
-    const table = document.createElement('table');
-    table.innerHTML = `
-      <caption id="race${raceNum}">Race ${raceNum}</caption>
-      <thead><tr><th>Horse Name</th><th>Sponsor</th></tr></thead>
-      <tbody>
-        ${grouped[raceNum].map(row => `
-          <tr><td>${row.HorseName}</td><td>${row.SponsorName}</td></tr>
-        `).join('')}
-      </tbody>
-    `;
-    container.appendChild(table);
-  });
 }
