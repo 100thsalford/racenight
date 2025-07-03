@@ -18,16 +18,52 @@ function parseCSV(csv) {
   });
 }
 
-function renderRaceTables(data) {const table = document.createElement('table');
-table.id = `race${raceNum}`;
-table.innerHTML = `
-  <caption>Race ${raceNum}</caption>
-  <thead><tr><th>Horse Name</th><th>Sponsor</th></tr></thead>
-  <tbody>
-    ${grouped[raceNum].map(row => `
-      <tr><td>${row.HorseName}</td><td>${row.SponsorName}</td></tr>
-    `).join('')}
-  </tbody>
-`;
+function renderRaceTables(data) {
+  const container = document.getElementById('race-tables');
+  const grouped = {};
 
+  data.forEach(row => {
+    const race = row.RaceNumber;
+    if (!grouped[race]) grouped[race] = [];
+    grouped[race].push(row);
+  });
+
+  Object.keys(grouped).sort().forEach(raceNum => {
+    const table = document.createElement('table');
+    table.id = `race${raceNum}`;
+    table.style.display = 'none'; // Hide by default
+    table.innerHTML = `
+      <caption>Race ${raceNum}</caption>
+      <thead><tr><th>Horse Name</th><th>Sponsor</th></tr></thead>
+      <tbody>
+        ${grouped[raceNum].map(row => `
+          <tr><td>${row.HorseName}</td><td>${row.SponsorName}</td></tr>
+        `).join('')}
+      </tbody>
+    `;
+    container.appendChild(table);
+  });
+
+  // Trigger view on initial load
+  showRaceFromHash();
+}
+
+// Respond to hash links like #race3
+window.addEventListener('hashchange', showRaceFromHash);
+function showRaceFromHash() {
+  const allTables = document.querySelectorAll('table');
+  const msg = document.getElementById('no-selection-message');
+  const hash = window.location.hash;
+
+  allTables.forEach(table => table.style.display = 'none');
+
+  if (hash.startsWith('#race')) {
+    const tableToShow = document.querySelector(hash);
+    if (tableToShow) {
+      tableToShow.style.display = 'table';
+      if (msg) msg.style.display = 'none';
+    }
+  } else {
+    if (msg) msg.style.display = 'block';
+  }
 }
