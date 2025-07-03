@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
     key: publicSpreadsheetURL,
     callback: function(data) {
       console.log("Fetched data:", data);
-      showInfo(data["Race Data"]);
+      showInfo(data["Race%20Data"]);
     },
     simpleSheet: false
   });
