@@ -1,18 +1,25 @@
-const publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pubhtml';
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pub?gid=0&single=true&output=csv';
 
-window.addEventListener('DOMContentLoaded', () => {
-  Tabletop.init({
-    key: publicSpreadsheetURL,
-    callback: function(data) {
-      console.log("Fetched data:", data);
-      showInfo(data["Race%20Data"]);
-    },
-    simpleSheet: false
-  });
+window.addEventListener('DOMContentLoaded', async () => {
+  const res = await fetch(csvUrl);
+  const text = await res.text();
+  const rows = parseCSV(text);
+  renderRaceTables(rows);
 });
 
-function showInfo(data) {
-  console.log("Race Data received:", data);
+function parseCSV(csv) {
+  const lines = csv.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  return lines.slice(1).map(line => {
+    const values = line.split(',').map(v => v.trim());
+    const entry = {};
+    headers.forEach((h, i) => entry[h] = values[i]);
+    return entry;
+  });
+}
+
+function renderRaceTables(data) {
+  console.log("Parsed data:", data);
   const container = document.getElementById('race-tables');
   const grouped = {};
 
