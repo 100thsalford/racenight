@@ -15,6 +15,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   renderStatus(statusRows[0]);
   renderRaceTables(raceRows);
+    updatePageTimestamp();
+
 });
 
 function parseCSV(csv) {
@@ -78,6 +80,22 @@ function renderRaceTables(data) {
   });
 
   showRaceFromHash();
+}
+function updatePageTimestamp() {
+  const el = document.getElementById('page-timestamp');
+  if (!el) return;
+
+  const now = new Date();
+  const formatted = now.toLocaleString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  el.textContent = `Page loaded: ${formatted}`;
 }
 
 window.addEventListener('hashchange', showRaceFromHash);
