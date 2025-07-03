@@ -9,6 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function showInfo(data) {
+    console.log("Fetched data:", data);  // ADD THIS LINE
   const container = document.getElementById('race-tables');
   const grouped = {};
 
