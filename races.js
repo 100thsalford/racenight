@@ -1,16 +1,16 @@
 const publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pubhtml';
 
-
 window.addEventListener('DOMContentLoaded', () => {
-Tabletop.init({
-  key: publicSpreadsheetURL,
-  callback: function(data) {
-    showInfo(data["Race Data"]); // Access by sheet name
-  },
-  simpleSheet: false
+  Tabletop.init({
+    key: publicSpreadsheetURL,
+    callback: function(data) {
+      console.log("Fetched data:", data);
+      showInfo(data["Race Data"]); // << This must match your tab name exactly
+    },
+    simpleSheet: false
+  });
 });
 
-});
 
 function showInfo(data) {
     console.log("Fetched data:", data);  // ADD THIS LINE
