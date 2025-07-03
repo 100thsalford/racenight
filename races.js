@@ -32,12 +32,24 @@ function renderStatus(status) {
   const statusContainer = document.getElementById('status-section');
   if (!status) return;
 
+  let statusClass = '';
+  const statusText = status.ToteStatus.toLowerCase();
+
+  if (statusText.includes('open')) {
+    statusClass = 'status-open';
+  } else if (statusText.includes('closed')) {
+    statusClass = 'status-closed';
+  }
+
   statusContainer.innerHTML = `
-    <p>🏇 <strong>Tote Status:</strong> ${status.ToteStatus}</p>
+    <div class="tote-status-box ${statusClass}">
+      🏇 <strong>${status.ToteStatus}</strong>
+    </div>
     <p>📍 <strong>For Race:</strong> ${status.ForRace}</p>
     <p>🏁 <strong>Winner:</strong> ${status.Winner}</p>
   `;
 }
+
 
 function renderRaceTables(data) {
   const container = document.getElementById('race-tables');
