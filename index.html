@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <title>Horse Race Night</title>
 <script src="https://cdn.jsdelivr.net/npm/tabletop@1.5.3/tabletop.min.js"></script>
-  <script src="races.js" defer></script>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const script = document.createElement('script');
+    script.src = 'races.js';
+    document.body.appendChild(script);
+  });
+</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
