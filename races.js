@@ -1,4 +1,5 @@
-const publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/1VvxZA7rD72HhgqTg_S9BlKlgLv7vGylMifFIvl_ph1M/pubhtml';
+const publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pubhtml';
+
 
 window.addEventListener('DOMContentLoaded', () => {
   Tabletop.init({
