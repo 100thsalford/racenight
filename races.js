@@ -72,12 +72,17 @@ function renderRaceTables(data) {
     table.style.display = 'none';
     table.innerHTML = `
       <caption>Race ${raceNum}</caption>
-      <thead><tr><th>#</th><th>Horse Name</th><th>Sponsor</th></tr></thead>
-      <tbody>
-        ${grouped[raceNum].map(row => `
-          <tr><td>${row.HorseNumber}</td><td>${row.HorseName}</td><td>${row.SponsorName}</td></tr>
-        `).join('')}
-      </tbody>
+      <thead><tr><th class="horse-number">Horse Number</th><th>Horse Name</th><th>Sponsor</th></tr></thead>
+<tbody>
+  ${grouped[raceNum].map(row => `
+    <tr>
+      <td class="horse-number">${row.HorseNumber}</td>
+      <td>${row.HorseName}</td>
+      <td>${row.SponsorName}</td>
+    </tr>
+  `).join('')}
+</tbody>
+
     `;
     container.appendChild(table);
   });
