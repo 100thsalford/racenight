@@ -2,11 +2,14 @@ const publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR
 
 
 window.addEventListener('DOMContentLoaded', () => {
-  Tabletop.init({
-    key: publicSpreadsheetURL,
-    callback: showInfo,
-    simpleSheet: true
-  });
+Tabletop.init({
+  key: publicSpreadsheetURL,
+  callback: function(data) {
+    showInfo(data["Race Data"]); // Access by sheet name
+  },
+  simpleSheet: false
+});
+
 });
 
 function showInfo(data) {
