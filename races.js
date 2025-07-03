@@ -1,10 +1,20 @@
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pub?gid=0&single=true&output=csv';
+const raceCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pub?output=csv&sheet=Race%20Data';
+const statusCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pub?output=csv&sheet=Status';
 
 window.addEventListener('DOMContentLoaded', async () => {
-  const res = await fetch(csvUrl);
-  const text = await res.text();
-  const rows = parseCSV(text);
-  renderRaceTables(rows);
+  const [raceRes, statusRes] = await Promise.all([
+    fetch(raceCsvUrl),
+    fetch(statusCsvUrl)
+  ]);
+
+  const raceText = await raceRes.text();
+  const statusText = await statusRes.text();
+
+  const raceRows = parseCSV(raceText);
+  const statusRows = parseCSV(statusText);
+
+  renderStatus(statusRows[0]);
+  renderRaceTables(raceRows);
 });
 
 function parseCSV(csv) {
@@ -16,6 +26,17 @@ function parseCSV(csv) {
     headers.forEach((h, i) => entry[h] = values[i]);
     return entry;
   });
+}
+
+function renderStatus(status) {
+  const statusContainer = document.getElementById('status-section');
+  if (!status) return;
+
+  statusContainer.innerHTML = `
+    <p>🏇 <strong>Tote Status:</strong> ${status.ToteStatus}</p>
+    <p>📍 <strong>For Race:</strong> ${status.ForRace}</p>
+    <p>🏁 <strong>Winner:</strong> ${status.Winner}</p>
+  `;
 }
 
 function renderRaceTables(data) {
@@ -31,7 +52,7 @@ function renderRaceTables(data) {
   Object.keys(grouped).sort().forEach(raceNum => {
     const table = document.createElement('table');
     table.id = `race${raceNum}`;
-    table.style.display = 'none'; // Hide by default
+    table.style.display = 'none';
     table.innerHTML = `
       <caption>Race ${raceNum}</caption>
       <thead><tr><th>Horse Name</th><th>Sponsor</th></tr></thead>
@@ -44,11 +65,9 @@ function renderRaceTables(data) {
     container.appendChild(table);
   });
 
-  // Trigger view on initial load
   showRaceFromHash();
 }
 
-// Respond to hash links like #race3
 window.addEventListener('hashchange', showRaceFromHash);
 function showRaceFromHash() {
   const allTables = document.querySelectorAll('table');
