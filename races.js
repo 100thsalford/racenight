@@ -137,15 +137,27 @@ function showRaceFromHash() {
   const msg = document.getElementById('no-selection-message');
   const hash = window.location.hash;
 
+  // Hide all race tables first…
   allTables.forEach(table => table.style.display = 'none');
 
+  // Remove the active class from all race buttons
+  const raceButtons = document.querySelectorAll('.race-button');
+  raceButtons.forEach(btn => btn.classList.remove('active'));
+
   if (hash.startsWith('#race')) {
+    // Show the appropriate table
     const tableToShow = document.querySelector(hash);
     if (tableToShow) {
       tableToShow.style.display = 'table';
       if (msg) msg.style.display = 'none';
     }
+    // Add the active class to the corresponding race button
+    const activeBtn = document.querySelector(`.race-button[href="${hash}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+    }
   } else {
     if (msg) msg.style.display = 'block';
   }
 }
+
