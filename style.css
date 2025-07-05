@@ -175,7 +175,7 @@ caption {
 }
 
 #notice-text {
-  max-height: 1.5em; /* show 1 line */
+  max-height: 1.1em; /* show 1 line */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
