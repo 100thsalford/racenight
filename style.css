@@ -266,7 +266,7 @@ caption {
 }
 
 .race-button.active {
-  background-color: #0056b3; /* or another highlight color */
-  border: 2px solid #fff;    /* optional: to make it extra clear */
+  background-color: #7413dc; /* or another highlight color */
+  border: 2px solid #007bff;    /* optional: to make it extra clear */
 }
 
