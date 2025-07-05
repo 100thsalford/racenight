@@ -269,4 +269,17 @@ caption {
   background-color: #7413dc; /* or another highlight color */
   border: 2px solid #007bff;    /* optional: to make it extra clear */
 }
+.tote-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.countdown-timer {
+  font-size: 1.2rem;
+  color: #333;
+}
+
 
