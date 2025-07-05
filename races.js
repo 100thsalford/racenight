@@ -32,6 +32,8 @@ function parseCSV(csv) {
 
 function renderStatus(status) {
   const statusContainer = document.getElementById('status-section');
+  const noticeContainer = document.getElementById('notice-section');
+
   if (!status) return;
 
   let statusClass = '';
@@ -51,19 +53,22 @@ function renderStatus(status) {
     </div>
     <p>📍 <strong>For Race:</strong> ${status.ForRace}</p>
     <p>🏁 <strong>Winner:</strong> ${status.Winner}</p>
-    ${status.Notice ? generateNoticeHTML(status.Notice) : ''}
   `;
 
-  // Attach toggle functionality if notice is present
+  // 🔥 Render notice separately
+  noticeContainer.innerHTML = status.Notice ? generateNoticeHTML(status.Notice) : '';
+
   const toggleLink = document.getElementById('notice-toggle');
   const noticeText = document.getElementById('notice-text');
   if (toggleLink && noticeText) {
-    toggleLink.addEventListener('click', () => {
+    toggleLink.addEventListener('click', (e) => {
+      e.preventDefault();
       noticeText.classList.toggle('expanded');
       toggleLink.textContent = noticeText.classList.contains('expanded') ? 'Show less ▲' : 'Show more ▼';
     });
   }
 }
+
 
 function generateNoticeHTML(noticeText) {
   return `
