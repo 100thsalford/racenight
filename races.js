@@ -37,14 +37,13 @@ function renderStatus(status) {
   let statusClass = '';
   const statusText = status.ToteStatus.toLowerCase();
 
-if (statusText.includes('open')) {
-  statusClass = 'status-open';
-} else if (statusText.includes('closed')) {
-  statusClass = 'status-closed';
-} else if (statusText.includes('payout')) {
-  statusClass = 'status-payout';
-}
-
+  if (statusText.includes('open')) {
+    statusClass = 'status-open';
+  } else if (statusText.includes('closed')) {
+    statusClass = 'status-closed';
+  } else if (statusText.includes('payout')) {
+    statusClass = 'status-payout';
+  }
 
   statusContainer.innerHTML = `
     <div class="tote-status-box ${statusClass}">
@@ -52,8 +51,29 @@ if (statusText.includes('open')) {
     </div>
     <p>📍 <strong>For Race:</strong> ${status.ForRace}</p>
     <p>🏁 <strong>Winner:</strong> ${status.Winner}</p>
+    ${status.Notice ? generateNoticeHTML(status.Notice) : ''}
+  `;
+
+  // Attach toggle functionality if notice is present
+  const toggleLink = document.getElementById('notice-toggle');
+  const noticeText = document.getElementById('notice-text');
+  if (toggleLink && noticeText) {
+    toggleLink.addEventListener('click', () => {
+      noticeText.classList.toggle('expanded');
+      toggleLink.textContent = noticeText.classList.contains('expanded') ? 'Show less ▲' : 'Show more ▼';
+    });
+  }
+}
+
+function generateNoticeHTML(noticeText) {
+  return `
+    <div class="notice-banner">
+      <p id="notice-text">${noticeText}</p>
+      <a href="#" id="notice-toggle">Show more ▼</a>
+    </div>
   `;
 }
+
 
 
 function renderRaceTables(data) {
