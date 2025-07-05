@@ -47,15 +47,24 @@ function renderStatus(status) {
     statusClass = 'status-payout';
   }
 
+  // Add countdown div
   statusContainer.innerHTML = `
-    <div class="tote-status-box ${statusClass}">
-      🏇 <strong>${status.ToteStatus}</strong>
+    <div class="tote-status-row">
+      <div class="tote-status-box ${statusClass}">
+        🏇 <strong>${status.ToteStatus}</strong>
+      </div>
+      <div id="countdown-timer" class="countdown-timer"></div>
     </div>
     <p>📍 <strong>For Race:</strong> ${status.ForRace}</p>
     <p>🏁 <strong>Winner:</strong> ${status.Winner}</p>
   `;
 
-  // 🔥 Render notice separately
+  // 🔥 Add countdown logic
+  if (status.CountdownTime) {
+    startCountdown(status.CountdownTime);
+  }
+
+  // Render notice if present
   noticeContainer.innerHTML = status.Notice ? generateNoticeHTML(status.Notice) : '';
 
   const toggleLink = document.getElementById('notice-toggle');
@@ -68,6 +77,38 @@ function renderStatus(status) {
     });
   }
 }
+function startCountdown(targetTimeStr) {
+  const countdownEl = document.getElementById('countdown-timer');
+  if (!countdownEl) return;
+
+  const target = new Date(targetTimeStr);
+
+  if (isNaN(target.getTime())) {
+    countdownEl.textContent = '⏳ Invalid countdown time';
+    return;
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      countdownEl.textContent = '⏳ Time remaining: 00:00:00';
+      clearInterval(interval);
+      return;
+    }
+
+    const hrs = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+    const mins = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+    const secs = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+
+    countdownEl.textContent = `⏳ Time remaining: ${hrs}:${mins}:${secs}`;
+  }
+
+  updateCountdown(); // initial call
+  const interval = setInterval(updateCountdown, 1000);
+}
+
 
 
 function generateNoticeHTML(noticeText) {
