@@ -1,168 +1,188 @@
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 1rem;
+  background-color: #f5f5f5;
+}
+
+#race-tables {
+  padding: 1rem;
+}
+
+.race-card-list {
+  display: none;
+  margin-bottom: 2rem;
+}
+
+.horse-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.horse-number {
+  font-weight: bold;
+  font-size: 1.5rem;
+  width: 2rem;
+  text-align: center;
+  background-color: #222;
+  color: white;
+  border-radius: 50%;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.horse-info {
+  flex-grow: 1;
+}
+
+.horse-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.horse-sponsor {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+@media (min-width: 768px) {
+  .horse-card {
+    max-width: 500px;
+    margin: 0.5rem auto;
+  }
+}
+
+/* Existing layout styles retained below */
 .status-block,
 .tote-status-box {
-	margin-bottom: 1rem;
-	padding: 1rem
+  margin-bottom: 1rem;
+  padding: 1rem;
 }
 
 nav a {
-	margin-right: 1rem
+  margin-right: 1rem;
 }
 
 .status-block {
-	background: #f8f8f8;
-	border: 1px solid #ccc
+  background: #f8f8f8;
+  border: 1px solid #ccc;
 }
 
 #status-section p {
-	font-size: 1.5rem;
-	margin: .5rem 0
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
 }
 
 #status-section p strong {
-	font-weight: 700;
-	font-size: 1.4rem
+  font-weight: 700;
+  font-size: 1.4rem;
 }
 
 .status-block p {
-	margin: .5rem 0
+  margin: 0.5rem 0;
 }
 
 .tote-status-box {
-	font-size: 1.55rem;
-	font-weight: 700;
-	border-radius: .5rem;
-	display: inline-block;
-	color: #fff
-}
-
-.race-button,
-body,
-table {
-	font-size: 1.2rem
+  font-size: 1.55rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  display: inline-block;
+  color: #fff;
 }
 
 .status-open {
-	background-color: #28a745
+  background-color: #28a745;
 }
 
 .status-closed {
-	background-color: #dc3545
+  background-color: #dc3545;
 }
+
 .status-payout {
-  background-color: rgb(80, 31, 163); /* Purple */
+  background-color: rgb(80, 31, 163);
   color: white;
 }
 
-
 .race-button-group {
-	display: flex;
-	flex-wrap: wrap;
-	gap: .5rem;
-	margin-bottom: 1rem;
-	justify-content: center
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
 }
 
 .race-button,
 .refresh-button {
-	display: inline-block;
-	color: #fff;
-	text-decoration: none;
-	border-radius: .4rem
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.4rem;
 }
 
 .race-button {
-	background-color: #007bff;
-	padding: .6rem 1.2rem;
-	font-weight: 600;
-	text-align: center;
-	min-width: 80px
+  background-color: #007bff;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  min-width: 80px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .race-button:hover {
-	background-color: #0056b3
+  background-color: #0056b3;
+}
+
+.race-button.active {
+  background-color: #7413dc;
+  border: 2px solid #007bff;
 }
 
 .refresh-button {
-	background-color: #6c757d;
-	padding: .5rem 1rem;
-	font-size: .95rem;
-	font-weight: 500;
-	margin-top: .5rem
+  background-color: #6c757d;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
 }
 
 .refresh-button:hover {
-	background-color: #495057
-}
-
-body {
-	font-family: system-ui, sans-serif;
-	line-height: 1.5;
-	padding: 1rem;
-	margin: 0
+  background-color: #495057;
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	margin: 1rem 0
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
 }
 
 td {
-  font-size: 1.2rem; /* controls data row cells */
+  font-size: 1.2rem;
   padding: 0.75rem;
-	border: 1px solid #ccc;
+  border: 1px solid #ccc;
+}
 
-},
 th {
-	border: 1px solid #ccc;
-	padding: .75rem;
-	font-size: 1.3rem;
-	text-align: left
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  font-size: 1.3rem;
+  text-align: left;
 }
 
 caption {
-	margin-bottom: .5rem;
-	font-size: 1.35rem;
-	font-weight: 700;
-	padding: .5rem 0
+  margin-bottom: 0.5rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  padding: 0.5rem 0;
 }
 
-@media (max-width:600px) {
-
-	.race-button,
-	table {
-		font-size: 1rem
-	}
-
-	.race-button {
-		flex: 1 1 40%;
-		padding: .75rem
-	}
-
-	.refresh-button {
-		font-size: 1rem;
-		padding: .6rem 1rem
-	}
-
-	#status-section .tote-status-box,
-	#status-section p {
-		font-size: 1.1rem
-	}
-
-	.tote-status-box {
-		padding: 1rem;
-		font-size: 1.2rem
-	}
-
-	#page-footer {
-		font-size: .95rem
-	}
-}
-.horse-number {
-  width: 80px;
-  text-align: center;
-  white-space: nowrap;
-}
 .notice-banner {
   background-color: #fff3cd;
   border: 1px solid #ffeeba;
@@ -175,7 +195,7 @@ caption {
 }
 
 #notice-text {
-  max-height: 1.2em; /* show 1 line */
+  max-height: 1.2em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -185,7 +205,7 @@ caption {
 
 #notice-text.expanded {
   white-space: normal;
-  max-height: 200px; /* expands */
+  max-height: 200px;
 }
 
 #notice-toggle {
@@ -198,6 +218,7 @@ caption {
 #notice-toggle:hover {
   text-decoration: underline;
 }
+
 .site-header {
   background-color: #7413dc;
   color: white;
@@ -219,6 +240,7 @@ caption {
   align-items: center;
   gap: 0.75rem;
 }
+
 .site-logo {
   height: 50px;
   margin-right: 1rem;
@@ -235,6 +257,7 @@ caption {
   flex-wrap: wrap;
   margin-top: 0.5rem;
 }
+
 @media (max-width: 600px) {
   .header-buttons {
     flex-direction: column;
@@ -246,29 +269,37 @@ caption {
     width: 100%;
     text-align: center;
   }
-}
-.race-button {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  text-decoration: none;
-  border-radius: 0.4rem;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  min-width: 80px;
-  transition: background-color 0.3s ease;
+
+  .race-button,
+  table {
+    font-size: 1rem;
+  }
+
+  .race-button {
+    flex: 1 1 40%;
+    padding: 0.75rem;
+  }
+
+  .refresh-button {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+  }
+
+  #status-section .tote-status-box,
+  #status-section p {
+    font-size: 1.1rem;
+  }
+
+  .tote-status-box {
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  #page-footer {
+    font-size: 0.95rem;
+  }
 }
 
-.race-button:hover {
-  background-color: #0056b3;
-}
-
-.race-button.active {
-  background-color: #7413dc; /* or another highlight color */
-  border: 2px solid #007bff;    /* optional: to make it extra clear */
-}
 .tote-status-row {
   display: flex;
   flex-wrap: wrap;
@@ -281,5 +312,3 @@ caption {
   font-size: 1.2rem;
   color: #333;
 }
-
-
