@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Horse Race Night</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <script src="races.js" defer></script>
 </head>
@@ -21,30 +22,32 @@
     </div>
   </header>
 
-  <div id="status-section" class="status-block"></div>
-  <div id="notice-section"></div>
+  <main style="max-width: 1000px; margin: 0 auto; padding: 1rem;">
+    <div id="status-section" class="status-block"></div>
+    <div id="notice-section"></div>
 
-  <section id="race-selector">
-    <p>Click the Race number below to view the Horse Names & Sponsors</p>
-    <div class="race-button-group">
-      <a href="#race1" class="race-button">Race 1</a>
-      <a href="#race2" class="race-button">Race 2</a>
-      <a href="#race3" class="race-button">Race 3</a>
-      <a href="#race4" class="race-button">Race 4</a>
-      <a href="#race5" class="race-button">Race 5</a>
-      <a href="#race6" class="race-button">Race 6</a>
-      <a href="#race7" class="race-button">Race 7</a>
-      <a href="#race8" class="race-button">Race 8</a>
-    </div>
-  </section>
+    <section id="race-selector">
+      <p style="text-align: center;">Click the Race number below to view the Horse Names & Sponsors</p>
+      <div class="race-button-group">
+        <a href="#race1" class="race-button">Race 1</a>
+        <a href="#race2" class="race-button">Race 2</a>
+        <a href="#race3" class="race-button">Race 3</a>
+        <a href="#race4" class="race-button">Race 4</a>
+        <a href="#race5" class="race-button">Race 5</a>
+        <a href="#race6" class="race-button">Race 6</a>
+        <a href="#race7" class="race-button">Race 7</a>
+        <a href="#race8" class="race-button">Race 8</a>
+      </div>
+    </section>
 
-  <p id="no-selection-message">Please select a race above to view the horses.</p>
+    <p id="no-selection-message" style="text-align: center;">Please select a race above to view the horses.</p>
 
-  <section id="race-tables">
-    <!-- Horse cards will be injected here by races.js -->
-  </section>
+    <section id="race-tables">
+      <!-- Horse cards will be injected here by races.js -->
+    </section>
+  </main>
 
-  <footer id="page-footer" style="margin-top: 2rem; font-size: 0.9rem; color: #666; text-align: center;">
+  <footer id="page-footer" style="margin: 2rem auto 1rem auto; font-size: 0.9rem; color: #666; text-align: center;">
     <p id="page-timestamp">Page loaded: ...</p>
     <p><a href="#" class="refresh-button" onclick="location.reload()">🔄 Refresh for latest data</a></p>
   </footer>
