@@ -1,204 +1,76 @@
-const raceCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pub?gid=0&single=true&output=csv';
-const statusCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRraMfoS7_nxJuYXMKjv82y1EVlaTn2W2UKyYUrm9IkBy_j_twOYdti8sx7L63b5U6ZcKbhapzFQvHh/pub?gid=417106980&single=true&output=csv';
+// races.js
+document.addEventListener('DOMContentLoaded', () => {
+  const raceData = [
+    {
+      id: 'race1',
+      horses: [
+        { number: 1, name: 'Lightning Bolt', sponsor: 'John Smith' },
+        { number: 2, name: 'Speedy Hooves', sponsor: 'Jane Doe' },
+        { number: 3, name: 'Thunderstorm', sponsor: 'Acme Ltd' },
+        { number: 4, name: 'Rapid Rocket', sponsor: 'Barry Fast' },
+        { number: 5, name: 'Wind Rider', sponsor: 'RaceFuel Co.' },
+        { number: 6, name: 'Gallop King', sponsor: 'Stables & Sons' },
+        { number: 7, name: 'Firefoot', sponsor: 'Equine Edge' },
+        { number: 8, name: 'Silver Streak', sponsor: 'Rider Insurance' }
+      ]
+    },
+    // Add race2 to race8 here in the same format...
+  ];
 
-window.addEventListener('DOMContentLoaded', async () => {
-  const [raceRes, statusRes] = await Promise.all([
-    fetch(raceCsvUrl),
-    fetch(statusCsvUrl)
-  ]);
+  const container = document.getElementById('race-tables');
+  raceData.forEach(race => {
+    const raceDiv = document.createElement('div');
+    raceDiv.className = 'race-card-list';
+    raceDiv.id = race.id;
 
-  const raceText = await raceRes.text();
-  const statusText = await statusRes.text();
+    race.horses.forEach(horse => {
+      const card = document.createElement('div');
+      card.className = 'horse-card';
 
-  const raceRows = parseCSV(raceText);
-  const statusRows = parseCSV(statusText);
+      const number = document.createElement('div');
+      number.className = 'horse-number';
+      number.textContent = horse.number;
 
-  renderStatus(statusRows[0]);
-  renderRaceTables(raceRows);
-    updatePageTimestamp();
+      const info = document.createElement('div');
+      info.className = 'horse-info';
 
+      const name = document.createElement('div');
+      name.className = 'horse-name';
+      name.textContent = horse.name;
+
+      const sponsor = document.createElement('div');
+      sponsor.className = 'horse-sponsor';
+      sponsor.textContent = `Sponsored by: ${horse.sponsor}`;
+
+      info.appendChild(name);
+      info.appendChild(sponsor);
+      card.appendChild(number);
+      card.appendChild(info);
+      raceDiv.appendChild(card);
+    });
+
+    container.appendChild(raceDiv);
+  });
+
+  // Only show the selected race
+  showRaceFromHash();
 });
 
-function parseCSV(csv) {
-  const lines = csv.trim().split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
-  return lines.slice(1).map(line => {
-    const values = line.split(',').map(v => v.trim());
-    const entry = {};
-    headers.forEach((h, i) => entry[h] = values[i]);
-    return entry;
-  });
-}
-
-function renderStatus(status) {
-  const statusContainer = document.getElementById('status-section');
-  const noticeContainer = document.getElementById('notice-section');
-
-  if (!status) return;
-
-  let statusClass = '';
-  const statusText = status.ToteStatus.toLowerCase();
-
-  if (statusText.includes('open')) {
-    statusClass = 'status-open';
-  } else if (statusText.includes('closed')) {
-    statusClass = 'status-closed';
-  } else if (statusText.includes('payout')) {
-    statusClass = 'status-payout';
-  }
-
-  // Add countdown div
-  statusContainer.innerHTML = `
-    <div class="tote-status-row">
-      <div class="tote-status-box ${statusClass}">
-        🏇 <strong>${status.ToteStatus}</strong>
-      </div>
-      <div id="countdown-timer" class="countdown-timer"></div>
-    </div>
-    <p>📍 <strong>For Race:</strong> ${status.ForRace}</p>
-    <p>🏁 <strong>Winner:</strong> ${status.Winner}</p>
-  `;
-
-  // 🔥 Add countdown logic
-  if (status.CountdownTime) {
-    startCountdown(status.CountdownTime);
-  }
-
-  // Render notice if present
-  noticeContainer.innerHTML = status.Notice ? generateNoticeHTML(status.Notice) : '';
-
-  const toggleLink = document.getElementById('notice-toggle');
-  const noticeText = document.getElementById('notice-text');
-  if (toggleLink && noticeText) {
-    toggleLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      noticeText.classList.toggle('expanded');
-      toggleLink.textContent = noticeText.classList.contains('expanded') ? 'Show less ▲' : 'Show more ▼';
-    });
-  }
-}
-function startCountdown(targetTimeStr) {
-  const countdownEl = document.getElementById('countdown-timer');
-  if (!countdownEl) return;
-
-  const target = new Date(targetTimeStr);
-
-  if (isNaN(target.getTime())) {
-    countdownEl.textContent = '⏳ Invalid countdown time';
-    return;
-  }
-
-  function updateCountdown() {
-    const now = new Date();
-    const diff = target - now;
-
-    if (diff <= 0) {
-      countdownEl.textContent = '⏳ Time remaining: 00:00:00';
-      clearInterval(interval);
-      return;
-    }
-
-    const hrs = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
-    const mins = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-    const secs = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-
-    countdownEl.textContent = `⏳ Time remaining: ${hrs}:${mins}:${secs}`;
-  }
-
-  updateCountdown(); // initial call
-  const interval = setInterval(updateCountdown, 1000);
-}
-
-
-
-function generateNoticeHTML(noticeText) {
-  return `
-    <div class="notice-banner">
-      <p id="notice-text">${noticeText}</p>
-      <a href="#" id="notice-toggle">Show more ▼</a>
-    </div>
-  `;
-}
-
-
-
-function renderRaceTables(data) {
-  const container = document.getElementById('race-tables');
-  const grouped = {};
-
-  data.forEach(row => {
-    const race = row.RaceNumber;
-    if (!grouped[race]) grouped[race] = [];
-    grouped[race].push(row);
-  });
-
-  Object.keys(grouped).sort().forEach(raceNum => {
-    const table = document.createElement('table');
-    table.id = `race${raceNum}`;
-    table.style.display = 'none';
-    table.innerHTML = `
-      <caption>Race ${raceNum}</caption>
-      <thead><tr><th class="horse-number">Horse Number</th><th>Horse Name</th><th>Sponsor</th></tr></thead>
-<tbody>
-  ${grouped[raceNum].map(row => `
-    <tr>
-      <td class="horse-number">${row.HorseNumber}</td>
-      <td>${row.HorseName}</td>
-      <td>${row.SponsorName}</td>
-    </tr>
-  `).join('')}
-</tbody>
-
-    `;
-    container.appendChild(table);
-  });
-
-  showRaceFromHash();
-}
-function updatePageTimestamp() {
-  const el = document.getElementById('page-timestamp');
-  if (!el) return;
-
-  const now = new Date();
-  const formatted = now.toLocaleString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  });
-
-  el.textContent = `Page loaded: ${formatted}`;
-}
-
 window.addEventListener('hashchange', showRaceFromHash);
+
 function showRaceFromHash() {
-  const allTables = document.querySelectorAll('table');
-  const msg = document.getElementById('no-selection-message');
+  const allRaceLists = document.querySelectorAll('.race-card-list');
   const hash = window.location.hash;
 
-  // Hide all race tables first…
-  allTables.forEach(table => table.style.display = 'none');
-
-  // Remove the active class from all race buttons
-  const raceButtons = document.querySelectorAll('.race-button');
-  raceButtons.forEach(btn => btn.classList.remove('active'));
+  allRaceLists.forEach(list => {
+    list.style.display = 'none';
+  });
 
   if (hash.startsWith('#race')) {
-    // Show the appropriate table
-    const tableToShow = document.querySelector(hash);
-    if (tableToShow) {
-      tableToShow.style.display = 'table';
-      if (msg) msg.style.display = 'none';
+    const raceToShow = document.querySelector(hash);
+    if (raceToShow) {
+      raceToShow.style.display = 'block';
+      document.getElementById('no-selection-message').style.display = 'none';
     }
-    // Add the active class to the corresponding race button
-    const activeBtn = document.querySelector(`.race-button[href="${hash}"]`);
-    if (activeBtn) {
-      activeBtn.classList.add('active');
-    }
-  } else {
-    if (msg) msg.style.display = 'block';
   }
 }
-
