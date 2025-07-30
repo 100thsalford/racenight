@@ -179,6 +179,21 @@ number.textContent = row.HorseNumber;
   });
 
   showRaceFromHash();
+
+  
+  document.addEventListener('DOMContentLoaded', () => {
+  const viewTabs = document.querySelectorAll('.view-tab');
+  viewTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewTabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const selected = btn.dataset.view;
+      document.body.classList.toggle('grid-view', selected === 'grid');
+    });
+  });
+});
+
 }
 
 function showRaceFromHash() {
