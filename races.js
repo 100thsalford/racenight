@@ -183,6 +183,7 @@ function showRaceFromHash() {
   const hash = window.location.hash;
 
   allRaceLists.forEach(list => {
+    list.classList.remove('active');
     list.style.display = 'none';
   });
 
@@ -193,10 +194,15 @@ function showRaceFromHash() {
   if (hash.startsWith('#race')) {
     const raceToShow = document.querySelector(hash);
     if (raceToShow) {
-      raceToShow.style.display = 'grid'; // force grid layout
-      if (!document.body.classList.contains('grid-view')) {
-        raceToShow.style.display = 'block'; // default for list view
+      raceToShow.classList.add('active');
+
+      if (document.body.classList.contains('grid-view')) {
+        // In grid view, display is handled by CSS class
+        raceToShow.style.display = '';
+      } else {
+        raceToShow.style.display = 'block';
       }
+
       if (msg) msg.style.display = 'none';
     }
 
@@ -208,6 +214,7 @@ function showRaceFromHash() {
     if (msg) msg.style.display = 'block';
   }
 }
+
 
 
 function updatePageTimestamp() {
