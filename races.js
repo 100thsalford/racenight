@@ -16,6 +16,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   renderStatus(statusRows[0]);
   renderRaceCards(raceRows);
   updatePageTimestamp();
+  setupViewToggle(); // ✅ added here
 });
 
 function parseCSV(csv) {
@@ -124,37 +125,34 @@ function renderRaceCards(data) {
     grouped[race].push(row);
   });
 
-Object.keys(grouped).sort().forEach(raceNum => {
-  const raceEntries = grouped[raceNum];
-  const firstRow = raceEntries[0]; // use first entry to get name/sponsor
+  Object.keys(grouped).sort().forEach(raceNum => {
+    const raceEntries = grouped[raceNum];
+    const firstRow = raceEntries[0]; // use first entry to get name/sponsor
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'race-card-list';
-  wrapper.id = `race${raceNum}`;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'race-card-list';
+    wrapper.id = `race${raceNum}`;
 
-  const title = document.createElement('div');
-  title.className = 'race-details';
-  title.innerHTML = `
-    <h2 class="race-name">🏁 ${firstRow.RaceName || `Race ${raceNum}`}</h2>
-    <p class="race-sponsor">Sponsored by: ${firstRow.RaceSponsor || 'TBC'}</p>
-  `;
+    const title = document.createElement('div');
+    title.className = 'race-details';
+    title.innerHTML = `
+      <h2 class="race-name">🏁 ${firstRow.RaceName || `Race ${raceNum}`}</h2>
+      <p class="race-sponsor">Sponsored by: ${firstRow.RaceSponsor || 'TBC'}</p>
+    `;
+    wrapper.appendChild(title);
 
-  wrapper.appendChild(title);
+    raceEntries.forEach(row => {
+      const isWinner = row.IsWinner && ['true', 'yes', '1'].includes(row.IsWinner.toLowerCase());
 
+      const card = document.createElement('div');
+      card.className = 'horse-card';
+      if (isWinner) card.classList.add('winner');
 
-    grouped[raceNum].forEach(row => {
-    const card = document.createElement('div');
-    const isWinner = row.IsWinner && ['true', 'yes', '1'].includes(row.IsWinner.toLowerCase());
-    
-    card.className = 'horse-card';
-    if (isWinner) {
-      card.classList.add('winner');
-    }
-
-const number = document.createElement('div');
-number.className = 'horse-number';
-number.textContent = row.HorseNumber;
-
+      const number = document.createElement('div');
+      number.className = 'horse-number';
+      number.innerHTML = isWinner
+        ? `<div class="number-badge">${row.HorseNumber}</div><div class="winner-label">WINNER</div>`
+        : `<div class="number-badge">${row.HorseNumber}</div>`;
 
       const info = document.createElement('div');
       info.className = 'horse-info';
@@ -162,7 +160,6 @@ number.textContent = row.HorseNumber;
       const name = document.createElement('div');
       name.className = 'horse-name';
       name.textContent = isWinner ? `🎖️ ${row.HorseName}` : row.HorseName;
-
 
       const sponsor = document.createElement('div');
       sponsor.className = 'horse-sponsor';
@@ -179,21 +176,6 @@ number.textContent = row.HorseNumber;
   });
 
   showRaceFromHash();
-
-  
-  document.addEventListener('DOMContentLoaded', () => {
-  const viewTabs = document.querySelectorAll('.view-tab');
-  viewTabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      viewTabs.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const selected = btn.dataset.view;
-      document.body.classList.toggle('grid-view', selected === 'grid');
-    });
-  });
-});
-
 }
 
 function showRaceFromHash() {
@@ -240,6 +222,20 @@ function updatePageTimestamp() {
   });
 
   el.textContent = `Page loaded: ${formatted}`;
+}
+
+// ✅ View toggle setup — no extra listeners
+function setupViewToggle() {
+  const viewTabs = document.querySelectorAll('.view-tab');
+  viewTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewTabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const selected = btn.dataset.view;
+      document.body.classList.toggle('grid-view', selected === 'grid');
+    });
+  });
 }
 
 window.addEventListener('hashchange', showRaceFromHash);
