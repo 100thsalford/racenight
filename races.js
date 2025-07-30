@@ -138,12 +138,9 @@ function renderRaceCards(data) {
       card.classList.add('winner');
     }
 
-    const number = document.createElement('div');
-    number.className = 'horse-number';
-    
-    number.innerHTML = isWinner
-      ? `<div class="number-badge">${row.HorseNumber}</div><div class="winner-label">WINNER</div>`
-      : `<div class="number-badge">${row.HorseNumber}</div>`;
+const number = document.createElement('div');
+number.className = 'horse-number';
+number.textContent = row.HorseNumber;
 
 
       const info = document.createElement('div');
