@@ -461,7 +461,7 @@ caption {
 }
 
 
-body.grid-view .race-card-list {
+.race-card-list {
   display: none;
 }
 
@@ -471,6 +471,11 @@ body.grid-view .race-card-list.active {
   gap: 1rem;
   justify-items: center;
 }
+
+body:not(.grid-view) .race-card-list.active {
+  display: block;
+}
+
 
 
 body.grid-view .horse-card {
