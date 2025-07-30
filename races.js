@@ -193,7 +193,10 @@ function showRaceFromHash() {
   if (hash.startsWith('#race')) {
     const raceToShow = document.querySelector(hash);
     if (raceToShow) {
-      raceToShow.style.display = 'block';
+      raceToShow.style.display = 'grid'; // force grid layout
+      if (!document.body.classList.contains('grid-view')) {
+        raceToShow.style.display = 'block'; // default for list view
+      }
       if (msg) msg.style.display = 'none';
     }
 
@@ -205,6 +208,7 @@ function showRaceFromHash() {
     if (msg) msg.style.display = 'block';
   }
 }
+
 
 function updatePageTimestamp() {
   const el = document.getElementById('page-timestamp');
