@@ -124,10 +124,23 @@ function renderRaceCards(data) {
     grouped[race].push(row);
   });
 
-  Object.keys(grouped).sort().forEach(raceNum => {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'race-card-list';
-    wrapper.id = `race${raceNum}`;
+Object.keys(grouped).sort().forEach(raceNum => {
+  const raceEntries = grouped[raceNum];
+  const firstRow = raceEntries[0]; // use first entry to get name/sponsor
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'race-card-list';
+  wrapper.id = `race${raceNum}`;
+
+  const title = document.createElement('div');
+  title.className = 'race-details';
+  title.innerHTML = `
+    <h2 class="race-name">🏁 ${firstRow.RaceName || `Race ${raceNum}`}</h2>
+    <p class="race-sponsor">Sponsored by: ${firstRow.RaceSponsor || 'TBC'}</p>
+  `;
+
+  wrapper.appendChild(title);
+
 
     grouped[raceNum].forEach(row => {
     const card = document.createElement('div');
