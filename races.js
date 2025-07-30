@@ -130,8 +130,14 @@ function renderRaceCards(data) {
     wrapper.id = `race${raceNum}`;
 
     grouped[raceNum].forEach(row => {
-      const card = document.createElement('div');
-      card.className = 'horse-card';
+    const card = document.createElement('div');
+    const isWinner = row.IsWinner && ['true', 'yes', '1'].includes(row.IsWinner.toLowerCase());
+    
+    card.className = 'horse-card';
+    if (isWinner) {
+      card.classList.add('winner');
+    }
+
 
       const number = document.createElement('div');
       number.className = 'horse-number';
@@ -142,7 +148,8 @@ function renderRaceCards(data) {
 
       const name = document.createElement('div');
       name.className = 'horse-name';
-      name.textContent = row.HorseName;
+      name.textContent = isWinner ? `🎖️ ${row.HorseName}` : row.HorseName;
+
 
       const sponsor = document.createElement('div');
       sponsor.className = 'horse-sponsor';
