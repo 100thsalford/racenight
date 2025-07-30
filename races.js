@@ -150,9 +150,8 @@ function renderRaceCards(data) {
 
       const number = document.createElement('div');
       number.className = 'horse-number';
-      number.innerHTML = isWinner
-        ? `<div class="number-badge">${row.HorseNumber}</div>`
-        : `<div class="number-badge">${row.HorseNumber}</div>`;
+      number.innerHTML = `<div class="number-badge">${row.HorseNumber}</div>`;
+
 
       const info = document.createElement('div');
       info.className = 'horse-info';
