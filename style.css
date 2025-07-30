@@ -494,3 +494,7 @@ body.grid-view .race-details {
   text-align: center;
 }
 
+body.grid-view .race-details {
+  display: none;
+}
+
