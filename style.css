@@ -462,11 +462,16 @@ caption {
 
 
 body.grid-view .race-card-list {
-  display: grid !important;
+  display: none;
+}
+
+body.grid-view .race-card-list.active {
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   justify-items: center;
 }
+
 
 body.grid-view .horse-card {
   height: 180px;
