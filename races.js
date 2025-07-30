@@ -183,8 +183,7 @@ function showRaceFromHash() {
   const hash = window.location.hash;
 
   allRaceLists.forEach(list => {
-    list.classList.remove('active');
-    list.style.display = 'none';
+    list.classList.remove('active'); // hide all races
   });
 
   document.querySelectorAll('.race-button').forEach(btn => {
@@ -194,15 +193,7 @@ function showRaceFromHash() {
   if (hash.startsWith('#race')) {
     const raceToShow = document.querySelector(hash);
     if (raceToShow) {
-      raceToShow.classList.add('active');
-
-      if (document.body.classList.contains('grid-view')) {
-        // In grid view, display is handled by CSS class
-        raceToShow.style.display = '';
-      } else {
-        raceToShow.style.display = 'block';
-      }
-
+      raceToShow.classList.add('active'); // show selected race via CSS only
       if (msg) msg.style.display = 'none';
     }
 
@@ -214,6 +205,7 @@ function showRaceFromHash() {
     if (msg) msg.style.display = 'block';
   }
 }
+
 
 
 
