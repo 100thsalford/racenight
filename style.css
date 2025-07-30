@@ -14,6 +14,24 @@ body {
   display: none;
   margin-bottom: 2rem;
 }
+.race-details {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f2f2f2;
+  border-left: 4px solid #007bff;
+  border-radius: 0.5rem;
+}
+
+.race-name {
+  font-size: 1.4rem;
+  margin: 0 0 0.3rem 0;
+}
+
+.race-sponsor {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
 
 .horse-card {
   display: flex;
