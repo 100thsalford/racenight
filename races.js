@@ -58,9 +58,7 @@ function renderStatus(status) {
     <p>🏁 <strong>Winner:</strong> ${status.Winner}</p>
   `;
 
-  if (status.CountdownTime) {
-    startCountdown(status.CountdownTime);
-  }
+
 
   noticeContainer.innerHTML = status.Notice ? generateNoticeHTML(status.Notice) : '';
 
@@ -84,36 +82,6 @@ function generateNoticeHTML(noticeText) {
   `;
 }
 
-function startCountdown(targetTimeStr) {
-  const countdownEl = document.getElementById('countdown-timer');
-  if (!countdownEl) return;
-
-  const target = new Date(targetTimeStr);
-  if (isNaN(target.getTime())) {
-    countdownEl.textContent = '⏳ Invalid countdown time';
-    return;
-  }
-
-  function updateCountdown() {
-    const now = new Date();
-    const diff = target - now;
-
-    if (diff <= 0) {
-      countdownEl.textContent = '⏳ Time remaining: 00:00:00';
-      clearInterval(interval);
-      return;
-    }
-
-    const hrs = String(Math.floor(diff / 3600000)).padStart(2, '0');
-    const mins = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-    const secs = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-
-    countdownEl.textContent = `⏳ Time remaining: ${hrs}:${mins}:${secs}`;
-  }
-
-  updateCountdown();
-  const interval = setInterval(updateCountdown, 1000);
-}
 
 function renderRaceCards(data) {
   const container = document.getElementById('race-tables');
